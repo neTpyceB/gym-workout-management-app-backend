@@ -2,22 +2,20 @@
 
 ## Current State
 
-No `Makefile` exists yet because this repository has no runnable backend code.
+No `Makefile` exists yet. The current command surface is npm-based:
 
-## Required Future Targets
+- `npm run lint`
+- `npm test`
+- `npm run test:unit`
+- `npm run test:integration`
+- `npm run test:smoke`
+- `npm run build`
+- `npm run prisma:generate`
+- `npm run prisma:migrate`
 
-When implementation begins, create a real `Makefile` with only the commands that exist in the repository at that time. Expected target categories:
+Shared container commands:
 
-- install
-- lint
-- test
-- test-unit
-- test-integration
-- test-e2e
-- test-smoke
-- dev
-- docker-up
-- docker-down
-- db-migrate
+- from `/Users/vadimsduboiss/Codebase`: `docker compose up --build`
+- from `/Users/vadimsduboiss/Codebase`: `docker compose down -v`
 
-This document must be replaced or updated to match the actual command surface once those targets are introduced.
+This document must be replaced or updated if a real `Makefile` is added.

@@ -2,41 +2,27 @@
 
 ## Current State
 
-No backend API implementation exists yet.
+Implemented now:
 
-## Required Endpoint Surface
+- `GET /health`
+- `GET /auth/google`
+- `GET /auth/google/callback`
+- `GET /auth/me`
+
+## Current Endpoint Surface
 
 Authentication:
 
-- `POST /auth/google`
+- `GET /auth/google?redirectUri=<frontend-origin>`
+- `GET /auth/google/callback?code=<google-code>&state=<signed-state>`
+- `GET /auth/me`
 
-Workout management:
+Health:
 
-- CRUD workout plans
-- CRUD exercises
+- `GET /health`
 
-Availability:
+Container runtime:
 
-- create slots
-- update slots
-- delete slots
-- list slots
-- backend-side repeat expansion logic
+- local compose publishes backend on `http://localhost:3000`
 
-Booking:
-
-- book slot
-- list slots
-- list bookings
-
-## API Rules
-
-- All endpoints must be validated.
-- All protected endpoints must be secured.
-- No fallback responses.
-- Authorization must enforce role and ownership rules.
-- Contract must stay aligned with the Prisma relational model.
-
-## Constraint
-
-This file documents the required API surface only. It must be updated to match the real implementation once backend work begins.
+Workout, availability, and booking endpoints are not implemented yet.

@@ -2,47 +2,27 @@
 
 ## Current State
 
-No application code exists yet in this repository.
+The repository contains a working auth-focused backend for screen 1.
 
-## Planned Module Structure
+Implemented now:
 
-Backend modules must be limited to:
+- `auth` controller/service
+- Prisma-backed `users` and `roles`
+- Google OAuth redirect flow
+- JWT verification for protected user lookup
+- `GET /health`
+- Dockerized runtime with Prisma migration deployment at container start
 
-- `auth`
-- `users`
-- `workouts`
-- `exercises`
-- `availability`
-- `bookings`
+## Current Auth Flow
 
-## Required Data Model
+1. Frontend calls `GET /auth/google` with an allowed redirect origin.
+2. Backend signs auth state and redirects to Google.
+3. Google redirects to `GET /auth/google/callback`.
+4. Backend verifies the Google identity, upserts the user with role `Trainer`, issues a short-lived JWT, and redirects back to the frontend.
+5. Frontend validates the JWT through `GET /auth/me`.
 
-Strict relational model only:
+## Local Container Runtime
 
-- `users`
-- `roles`
-- `workout_plans`
-- `workout_days`
-- `exercises`
-- `availability_slots`
-- `bookings`
-
-Required relations:
-
-- User → Role
-- Workout → Days → Exercises
-- Availability → TimeSlots
-- Booking → User + Slot
-
-## Cross-Cutting Rules
-
-- Google OAuth for authentication entry
-- Short-lived JWT only
-- Prisma migrations only
-- Request validation on all endpoints
-- Role and ownership-based authorization
-- No fallback responses
-
-## Validation Requirement
-
-This architecture is planned only. It becomes authoritative for implementation once screenshots are provided and code work starts.
+- Compose injects container-local PostgreSQL connectivity through `DATABASE_URL`
+- Backend listens on `0.0.0.0:3000` inside the container and is published on `localhost:3000`
+- Prisma migrations run before the production server starts

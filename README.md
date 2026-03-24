@@ -2,34 +2,24 @@
 
 ## Status
 
-This repository currently contains project documentation and repository hygiene files only.
+This repository now contains the first implemented backend flow: Google auth entry, JWT issuance, and protected user lookup for screen 1.
+
+Implemented now:
+
+- NestJS backend scaffold
+- Prisma schema, generated client, and auth migration
+- PostgreSQL-backed `roles` and `users`
+- Google OAuth redirect start and callback
+- short-lived JWT issuance
+- protected `GET /auth/me`
+- Docker image with auto-applied Prisma migrations
+- health endpoint
+- unit, integration, smoke, lint, and build validation
 
 Not implemented yet:
 
-- NestJS application scaffold
-- Prisma schema and migrations
-- PostgreSQL integration
-- Authentication
-- REST API endpoints
-- Tests
-- Docker assets
+- workout, availability, and booking modules
 - CI/CD
-
-## Fixed Scope
-
-Backend scope is limited to the behavior required by the screenshots and project instructions.
-
-Allowed functional areas:
-
-- Google Sign-In
-- JWT authentication
-- Users and roles
-- Workout plan CRUD
-- Exercise CRUD
-- Availability slot management with repeat handling
-- Booking flow
-
-No extra features are allowed beyond the screenshots.
 
 ## Fixed Stack
 
@@ -38,17 +28,41 @@ No extra features are allowed beyond the screenshots.
 - PostgreSQL
 - Prisma ORM
 
-## Delivery Rules
+## Current Commands
 
-- Create a plan before implementation.
-- Keep [`ROADMAP.md`](./ROADMAP.md) updated with completed, current, and next steps.
-- Keep all mandatory docs aligned with the real repository state.
-- Use Prisma migrations only.
-- Run full validation after every change once code exists.
+- `npm run lint`
+- `npm test`
+- `npm run test:unit`
+- `npm run test:integration`
+- `npm run test:smoke`
+- `npm run build`
+- `npm run prisma:generate`
+- `npm run prisma:migrate`
 
-## Source Of Truth
+## Docker
 
-- Screenshots provided by the user
-- [`AGENTS.md`](./AGENTS.md)
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md)
-- [`API.md`](./API.md)
+Local startup now uses the shared compose stack at `/Users/vadimsduboiss/Codebase/docker-compose.yml`.
+
+- backend URL: `http://localhost:3000`
+- health URL: `http://localhost:3000/health`
+- postgres port: `localhost:55432`
+
+Run from `/Users/vadimsduboiss/Codebase`:
+
+- `docker compose up --build`
+
+## Environment
+
+Create `/Users/vadimsduboiss/Codebase/gym-workout-management-app-backend/.env` from `.env.example`.
+
+Required keys:
+
+- `PORT=3000`
+- `DATABASE_URL=postgresql://postgres:postgres@localhost:55432/gym_auth?schema=public`
+- `JWT_SECRET=<long-random-secret>`
+- `GOOGLE_CLIENT_ID=<google-web-client-id>`
+- `GOOGLE_CLIENT_SECRET=<google-web-client-secret>`
+- `GOOGLE_REDIRECT_URI=http://localhost:3000/auth/google/callback`
+- `ALLOWED_REDIRECT_ORIGINS=http://localhost:8081,http://wellness-app.adlerclub.tech`
+
+Compose overrides only `DATABASE_URL` internally so the backend container talks to the `postgres` service while host-side tooling still works against `localhost:55432`.

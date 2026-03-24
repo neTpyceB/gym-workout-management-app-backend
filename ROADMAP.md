@@ -2,22 +2,27 @@
 
 ## Completed
 
-- Repository inspected
-- Mandatory documentation created
-- Backend `.gitignore` created
+- repository inspected
+- mandatory documentation created
+- backend `.gitignore` created
+- screen 1 implementation plan defined
+- NestJS backend scaffolded
+- Prisma auth schema and migration added
+- Google OAuth redirect start and callback implemented
+- JWT issuance and protected auth lookup implemented
+- screen 1 unit, integration, smoke, lint, and build validation completed
+- backend Docker image added
+- shared local Docker compose runtime added
 
 ## Current Step
 
-- Waiting for screenshots and implementation kickoff
+- waiting for Google OAuth env configuration and the next backend scope
 
 ## Next Steps
 
-- Confirm final scope from screenshots
-- Scaffold NestJS backend with Prisma and PostgreSQL
-- Define schema and create initial migrations
-- Implement auth, workout, availability, and booking modules
-- Add unit, integration, e2e, and smoke coverage
-- Add Docker and CI/CD support required by the project
+- implement the next screenshot-defined backend scope only
+- extend the relational model through Prisma migrations only
+- keep auth enforcement strict on all protected routes
 
 ## Master Sequence
 

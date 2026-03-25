@@ -27,3 +27,23 @@ export type Role = Prisma.RoleModel
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model WorkoutPlan
+ * 
+ */
+export type WorkoutPlan = Prisma.WorkoutPlanModel
+/**
+ * Model WorkoutDay
+ * 
+ */
+export type WorkoutDay = Prisma.WorkoutDayModel
+/**
+ * Model Exercise
+ * 
+ */
+export type Exercise = Prisma.ExerciseModel
+/**
+ * Model AvailabilitySlot
+ * 
+ */
+export type AvailabilitySlot = Prisma.AvailabilitySlotModel

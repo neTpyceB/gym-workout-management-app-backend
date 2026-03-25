@@ -1,13 +1,20 @@
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 
-import type { INestApplication } from '@nestjs/common';
+import { ValidationPipe, type INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { GenericContainer, Wait } from 'testcontainers';
+import type { PrismaService as PrismaServiceType } from '../../src/prisma/prisma.service';
 
 const rootDir = join(__dirname, '..', '..');
 
-export async function createTestApp() {
+type TestApp = {
+  app: INestApplication;
+  close: () => Promise<void>;
+  prisma: PrismaServiceType;
+};
+
+export async function createTestApp(): Promise<TestApp> {
   const postgres = await new GenericContainer('postgres:17-alpine')
     .withEnvironment({
       POSTGRES_DB: 'gym_auth_test',
@@ -40,19 +47,33 @@ export async function createTestApp() {
   const importedModule = (await import('../../src/app.module')) as {
     AppModule: new (...args: never[]) => unknown;
   };
+  const importedPrisma = (await import('../../src/prisma/prisma.service')) as {
+    PrismaService: new (...args: never[]) => unknown;
+  };
   const { AppModule } = importedModule;
+  const { PrismaService } = importedPrisma;
   const moduleRef = await Test.createTestingModule({
     imports: [AppModule],
   }).compile();
   const app: INestApplication = moduleRef.createNestApplication();
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidNonWhitelisted: true,
+      transform: true,
+      whitelist: true,
+    }),
+  );
   await app.init();
+  const prisma: PrismaServiceType = moduleRef.get(PrismaService);
 
   return {
     app,
     close: async () => {
+      await prisma.$disconnect();
       await app.close();
       await postgres.stop();
     },
+    prisma,
   };
 }

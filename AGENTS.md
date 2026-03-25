@@ -15,11 +15,13 @@ Persist project instructions for future AI and human contributors.
 
 ## Current Repository State
 
-This repository contains the implemented screen 1 backend:
+This repository contains the currently implemented backend:
 
 - Google OAuth redirect flow
 - `Trainer` role assignment
 - short-lived JWT issuance
 - protected current-user lookup
+- relational workout persistence for workout plans, days, and exercises
+- protected workout create/list endpoints scoped to the authenticated trainer
 - Dockerized runtime with Prisma migration deploy
 - validated unit, integration, smoke, lint, and build commands

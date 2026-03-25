@@ -8,6 +8,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum AvailabilitySlotStatus {
+  OPEN
+  BUSY
+}
+
 model Role {
   id        String   @id @default(cuid())
   name      String   @unique
@@ -17,13 +22,62 @@ model Role {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  googleId  String   @unique
-  name      String
-  avatarUrl String?
-  roleId    String
-  role      Role     @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String             @id @default(cuid())
+  email             String             @unique
+  googleId          String             @unique
+  name              String
+  avatarUrl         String?
+  roleId            String
+  role              Role               @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  workoutPlans      WorkoutPlan[]
+  availabilitySlots AvailabilitySlot[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+model WorkoutPlan {
+  id          String       @id @default(cuid())
+  name        String
+  description String
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  days        WorkoutDay[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model WorkoutDay {
+  id            String     @id @default(cuid())
+  name          String
+  order         Int
+  workoutPlanId String
+  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  exercises     Exercise[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Exercise {
+  id           String     @id @default(cuid())
+  name         String
+  order        Int
+  reps         Int
+  sets         Int
+  workoutDayId String
+  workoutDay   WorkoutDay @relation(fields: [workoutDayId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model AvailabilitySlot {
+  id          String   @id @default(cuid())
+  date        DateTime
+  startTime   String
+  endTime     String
+  sessionName String
+  status      AvailabilitySlotStatus @default(OPEN)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

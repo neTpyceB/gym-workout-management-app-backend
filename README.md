@@ -2,23 +2,27 @@
 
 ## Status
 
-This repository now contains the first implemented backend flow: Google auth entry, JWT issuance, and protected user lookup for screen 1.
+This repository now contains the implemented auth flow and the first workout persistence flow.
 
 Implemented now:
 
 - NestJS backend scaffold
 - Prisma schema, generated client, and auth migration
 - PostgreSQL-backed `roles` and `users`
+- PostgreSQL-backed `workout_plans`, `workout_days`, and `exercises`
 - Google OAuth redirect start and callback
 - short-lived JWT issuance
 - protected `GET /auth/me`
+- protected `GET /workouts`
+- protected `POST /workouts`
+- workout persistence scoped to the authenticated trainer
 - Docker image with auto-applied Prisma migrations
 - health endpoint
 - unit, integration, smoke, lint, and build validation
 
 Not implemented yet:
 
-- workout, availability, and booking modules
+- availability and booking modules
 - CI/CD
 
 ## Fixed Stack

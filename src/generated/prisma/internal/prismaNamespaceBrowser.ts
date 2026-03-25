@@ -52,7 +52,11 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Role: 'Role',
-  User: 'User'
+  User: 'User',
+  WorkoutPlan: 'WorkoutPlan',
+  WorkoutDay: 'WorkoutDay',
+  Exercise: 'Exercise',
+  AvailabilitySlot: 'AvailabilitySlot'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -93,6 +97,59 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const WorkoutPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkoutPlanScalarFieldEnum = (typeof WorkoutPlanScalarFieldEnum)[keyof typeof WorkoutPlanScalarFieldEnum]
+
+
+export const WorkoutDayScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  workoutPlanId: 'workoutPlanId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkoutDayScalarFieldEnum = (typeof WorkoutDayScalarFieldEnum)[keyof typeof WorkoutDayScalarFieldEnum]
+
+
+export const ExerciseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  reps: 'reps',
+  sets: 'sets',
+  workoutDayId: 'workoutDayId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
+
+
+export const AvailabilitySlotScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  sessionName: 'sessionName',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AvailabilitySlotScalarFieldEnum = (typeof AvailabilitySlotScalarFieldEnum)[keyof typeof AvailabilitySlotScalarFieldEnum]
 
 
 export const SortOrder = {

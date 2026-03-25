@@ -207,6 +207,8 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  workoutPlans?: Prisma.WorkoutPlanListRelationFilter
+  availabilitySlots?: Prisma.AvailabilitySlotListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -219,6 +221,8 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.RoleOrderByWithRelationInput
+  workoutPlans?: Prisma.WorkoutPlanOrderByRelationAggregateInput
+  availabilitySlots?: Prisma.AvailabilitySlotOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -234,6 +238,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  workoutPlans?: Prisma.WorkoutPlanListRelationFilter
+  availabilitySlots?: Prisma.AvailabilitySlotListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -273,6 +279,8 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
+  availabilitySlots?: Prisma.AvailabilitySlotCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -284,6 +292,8 @@ export type UserUncheckedCreateInput = {
   roleId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -295,6 +305,8 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
+  availabilitySlots?: Prisma.AvailabilitySlotUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -306,6 +318,8 @@ export type UserUncheckedUpdateInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -383,6 +397,11 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type UserCreateNestedManyWithoutRoleInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutRoleInput, Prisma.UserUncheckedCreateWithoutRoleInput> | Prisma.UserCreateWithoutRoleInput[] | Prisma.UserUncheckedCreateWithoutRoleInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutRoleInput | Prisma.UserCreateOrConnectWithoutRoleInput[]
@@ -429,6 +448,34 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type UserCreateNestedOneWithoutWorkoutPlansInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutPlansInput, Prisma.UserUncheckedCreateWithoutWorkoutPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWorkoutPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutPlansInput, Prisma.UserUncheckedCreateWithoutWorkoutPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutPlansInput
+  upsert?: Prisma.UserUpsertWithoutWorkoutPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkoutPlansInput, Prisma.UserUpdateWithoutWorkoutPlansInput>, Prisma.UserUncheckedUpdateWithoutWorkoutPlansInput>
+}
+
+export type UserCreateNestedOneWithoutAvailabilitySlotsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedCreateWithoutAvailabilitySlotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvailabilitySlotsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAvailabilitySlotsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedCreateWithoutAvailabilitySlotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvailabilitySlotsInput
+  upsert?: Prisma.UserUpsertWithoutAvailabilitySlotsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAvailabilitySlotsInput, Prisma.UserUpdateWithoutAvailabilitySlotsInput>, Prisma.UserUncheckedUpdateWithoutAvailabilitySlotsInput>
+}
+
 export type UserCreateWithoutRoleInput = {
   id?: string
   email: string
@@ -437,6 +484,8 @@ export type UserCreateWithoutRoleInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
+  availabilitySlots?: Prisma.AvailabilitySlotCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -447,6 +496,8 @@ export type UserUncheckedCreateWithoutRoleInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -489,6 +540,134 @@ export type UserScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
+export type UserCreateWithoutWorkoutPlansInput = {
+  id?: string
+  email: string
+  googleId: string
+  name: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  availabilitySlots?: Prisma.AvailabilitySlotCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWorkoutPlansInput = {
+  id?: string
+  email: string
+  googleId: string
+  name: string
+  avatarUrl?: string | null
+  roleId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWorkoutPlansInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutPlansInput, Prisma.UserUncheckedCreateWithoutWorkoutPlansInput>
+}
+
+export type UserUpsertWithoutWorkoutPlansInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutPlansInput, Prisma.UserUncheckedUpdateWithoutWorkoutPlansInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutPlansInput, Prisma.UserUncheckedCreateWithoutWorkoutPlansInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWorkoutPlansInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutPlansInput, Prisma.UserUncheckedUpdateWithoutWorkoutPlansInput>
+}
+
+export type UserUpdateWithoutWorkoutPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  availabilitySlots?: Prisma.AvailabilitySlotUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWorkoutPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAvailabilitySlotsInput = {
+  id?: string
+  email: string
+  googleId: string
+  name: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
+  id?: string
+  email: string
+  googleId: string
+  name: string
+  avatarUrl?: string | null
+  roleId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAvailabilitySlotsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedCreateWithoutAvailabilitySlotsInput>
+}
+
+export type UserUpsertWithoutAvailabilitySlotsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedUpdateWithoutAvailabilitySlotsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedCreateWithoutAvailabilitySlotsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAvailabilitySlotsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAvailabilitySlotsInput, Prisma.UserUncheckedUpdateWithoutAvailabilitySlotsInput>
+}
+
+export type UserUpdateWithoutAvailabilitySlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateManyRoleInput = {
   id?: string
   email: string
@@ -507,6 +686,8 @@ export type UserUpdateWithoutRoleInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
+  availabilitySlots?: Prisma.AvailabilitySlotUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -517,6 +698,8 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
+  availabilitySlots?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -530,6 +713,44 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
 }
 
 
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  workoutPlans: number
+  availabilitySlots: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  workoutPlans?: boolean | UserCountOutputTypeCountWorkoutPlansArgs
+  availabilitySlots?: boolean | UserCountOutputTypeCountAvailabilitySlotsArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkoutPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkoutPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAvailabilitySlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AvailabilitySlotWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -541,6 +762,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  workoutPlans?: boolean | Prisma.User$workoutPlansArgs<ExtArgs>
+  availabilitySlots?: boolean | Prisma.User$availabilitySlotsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -581,6 +805,9 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "googleId" | "name" | "avatarUrl" | "roleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  workoutPlans?: boolean | Prisma.User$workoutPlansArgs<ExtArgs>
+  availabilitySlots?: boolean | Prisma.User$availabilitySlotsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
@@ -593,6 +820,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     role: Prisma.$RolePayload<ExtArgs>
+    workoutPlans: Prisma.$WorkoutPlanPayload<ExtArgs>[]
+    availabilitySlots: Prisma.$AvailabilitySlotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -998,6 +1227,8 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  workoutPlans<T extends Prisma.User$workoutPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workoutPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkoutPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  availabilitySlots<T extends Prisma.User$availabilitySlotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$availabilitySlotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AvailabilitySlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1433,6 +1664,54 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.workoutPlans
+ */
+export type User$workoutPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkoutPlan
+   */
+  select?: Prisma.WorkoutPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkoutPlan
+   */
+  omit?: Prisma.WorkoutPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkoutPlanInclude<ExtArgs> | null
+  where?: Prisma.WorkoutPlanWhereInput
+  orderBy?: Prisma.WorkoutPlanOrderByWithRelationInput | Prisma.WorkoutPlanOrderByWithRelationInput[]
+  cursor?: Prisma.WorkoutPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkoutPlanScalarFieldEnum | Prisma.WorkoutPlanScalarFieldEnum[]
+}
+
+/**
+ * User.availabilitySlots
+ */
+export type User$availabilitySlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AvailabilitySlot
+   */
+  select?: Prisma.AvailabilitySlotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AvailabilitySlot
+   */
+  omit?: Prisma.AvailabilitySlotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AvailabilitySlotInclude<ExtArgs> | null
+  where?: Prisma.AvailabilitySlotWhereInput
+  orderBy?: Prisma.AvailabilitySlotOrderByWithRelationInput | Prisma.AvailabilitySlotOrderByWithRelationInput[]
+  cursor?: Prisma.AvailabilitySlotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AvailabilitySlotScalarFieldEnum | Prisma.AvailabilitySlotScalarFieldEnum[]
 }
 
 /**

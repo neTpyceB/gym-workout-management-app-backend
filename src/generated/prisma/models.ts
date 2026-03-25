@@ -10,4 +10,8 @@
  */
 export type * from './models/Role.js'
 export type * from './models/User.js'
+export type * from './models/WorkoutPlan.js'
+export type * from './models/WorkoutDay.js'
+export type * from './models/Exercise.js'
+export type * from './models/AvailabilitySlot.js'
 export type * from './commonInputTypes.js'
